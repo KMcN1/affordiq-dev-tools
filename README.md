@@ -24,7 +24,7 @@ First build the project with mvn clean package.
 - Get the Spring Boot Jar from the 'target' directory of the project. 
 - Run With:   
 
-      java -jar async-transaction-refresh-analyzer-${maven_version}.jar
+      java -jar async-transaction-refresh-analyzer.jar
 
 #### Specify Date
 
