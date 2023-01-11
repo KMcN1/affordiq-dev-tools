@@ -25,8 +25,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class AsyncTransactionsProcessingService {
     public static final File BASE_DIR;
     static {
-        URL resource = AsyncTransactionsProcessingService.class.getResource("/");
-        BASE_DIR = new File(resource.getFile(), "../../results");
+        BASE_DIR = new File(System.getProperty("user.home").concat("/BlackArrow/TransactionsRefreshSummaries"));
     }
 
     public static final String PROCESSING = "Processing";
@@ -56,12 +55,13 @@ public class AsyncTransactionsProcessingService {
 
         AsyncTransactionSummary summary = getAsyncTransactionSummary(date, env, statusGroupedAsyncTransactions);
 
-        File outputFile = new File(BASE_DIR, "/".concat(env)
-                .concat("/AsyncTransactionSummary_").concat(date.toString()).concat(".json")
+        File outputDir = new File(BASE_DIR, "/".concat(env));
+        outputDir.mkdirs();
+        File outputFile = new File(outputDir, "/AsyncTransactionSummary_"
+                .concat(date.toString()).concat(".json")
         );
 
         objectMapper.writeValue(new FileOutputStream(outputFile), summary);
-        log.info("Wrote results for env: {}, to file: {}", env, outputFile);
         return outputFile;
     }
 

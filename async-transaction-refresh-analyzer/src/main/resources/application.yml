@@ -1,0 +1,9 @@
+spring:
+    main:
+        web-application-type: NONE
+        banner-mode: OFF
+
+logging:
+    level:
+        io.blackarrow: INFO
+
