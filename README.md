@@ -28,11 +28,11 @@ First build the project with mvn clean package.
 
 #### Specify Date
 
-NOTE: If you run the app with no arguments, it will fetch transactions for the current day.
+If you run the app with no arguments, it will fetch transactions for the current day.
 
-If you want to see the results for a different date, add the appropriate parameter (in ISO Date Formar), e.g.
+If you want to see the results for a different date, add the appropriate parameter (in ISO Date Format), e.g.
 
-      java -jar async-transaction-refresh-analyzer-${maven_version}.jar-Ddate=2022-10-09
+      java -jar async-transaction-refresh-analyzer.jar -Ddate=2022-10-09
 
 ### Results
 
