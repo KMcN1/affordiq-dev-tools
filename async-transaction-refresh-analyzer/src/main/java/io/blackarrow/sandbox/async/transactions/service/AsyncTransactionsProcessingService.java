@@ -11,7 +11,6 @@ import software.amazon.awssdk.regions.Region;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -23,11 +22,6 @@ import static java.util.stream.Collectors.groupingBy;
 
 @Slf4j
 public class AsyncTransactionsProcessingService {
-    public static final File BASE_DIR;
-    static {
-        BASE_DIR = new File(System.getProperty("user.home").concat("/BlackArrow/TransactionsRefreshSummaries"));
-    }
-
     public static final String PROCESSING = "Processing";
     public static final String PROCESSED = "Processed";
     public static final String FAILED = "Failed";
@@ -35,8 +29,10 @@ public class AsyncTransactionsProcessingService {
     private final AsyncTransactionFetcherService asyncTransactionFetcherService;
 
     private final ObjectMapper objectMapper;
+    private final File outputDir;
 
-    public AsyncTransactionsProcessingService() {
+    public AsyncTransactionsProcessingService(File outputDir) {
+        this.outputDir = outputDir;
         objectMapper = new ObjectMapper()
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .registerModule(new JavaTimeModule());
@@ -55,7 +51,7 @@ public class AsyncTransactionsProcessingService {
 
         AsyncTransactionSummary summary = getAsyncTransactionSummary(date, env, statusGroupedAsyncTransactions);
 
-        File outputDir = new File(BASE_DIR, "/".concat(env));
+        File outputDir = new File(this.outputDir, "/".concat(env));
         outputDir.mkdirs();
         File outputFile = new File(outputDir, "/AsyncTransactionSummary_"
                 .concat(date.toString()).concat(".json")

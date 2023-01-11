@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static io.blackarrow.sandbox.async.transactions.service.AsyncTransactionsProcessingService.BASE_DIR;
 
 @Slf4j
 @SpringBootApplication
@@ -25,13 +24,21 @@ public class AsyncTransactionAnalyzerApp implements CommandLineRunner {
         SpringApplication.run(AsyncTransactionAnalyzerApp.class, args);
     }
 
+    public static final File BASE_DIR;
+    static {
+        BASE_DIR =
+                new File(System.getProperty("user.home").concat("/BlackArrow/TransactionsRefreshSummaries"));
+    }
     private static final String ARG_DATE = "date";
+    private static final String ARG_OUTPUT_DIR = "output_dir";
     private static final Map<String, Region> ENV_MAP = Map.of("demo", Region.EU_WEST_2, "test", Region.US_EAST_2);
 
     @Override
     public void run(String... args) {
-        LocalDate date = getDateToUse(args);
-        AsyncTransactionsProcessingService asyncTransactionsProcessingService = new AsyncTransactionsProcessingService();
+        Map<String, String> argMap = getArguments(args);
+        File outputDir = getOutputDirectory(argMap);
+        LocalDate date = getDateToUse(argMap);
+        AsyncTransactionsProcessingService asyncTransactionsProcessingService = new AsyncTransactionsProcessingService(outputDir);
 
         ENV_MAP.forEach((env, region) -> {
             try {
@@ -40,14 +47,10 @@ public class AsyncTransactionAnalyzerApp implements CommandLineRunner {
                 log.error("Error while processing results:", e);
             }
         });
-        logSuccess();
+        logSuccess(outputDir);
     }
 
-    private static LocalDate getDateToUse(String[] args) {
-        Map<String, String> argMap = Arrays.stream(args).map(arg -> arg.split("="))
-                .collect(Collectors.toMap(arr -> arr[0],
-                        arr -> arr.length > 1 ? arr[1] : ""));
-
+    private static LocalDate getDateToUse(Map<String, String> argMap) {
         LocalDate date = LocalDate.now().minusDays(0); // Default
         if (argMap.containsKey(ARG_DATE)) {
             try {
@@ -61,9 +64,24 @@ public class AsyncTransactionAnalyzerApp implements CommandLineRunner {
         return date;
     }
 
-    private static void logSuccess() {
+    private File getOutputDirectory(Map<String, String> argMap) {
+        File outputDir = BASE_DIR;
+        if (argMap.containsKey(ARG_OUTPUT_DIR)) {
+            outputDir = new File(argMap.get(ARG_OUTPUT_DIR));
+        }
+        return outputDir;
+    }
+
+    private static Map<String, String> getArguments(String[] args) {
+        Map<String, String> argMap = Arrays.stream(args).map(arg -> arg.split("="))
+                .collect(Collectors.toMap(arr -> arr[0],
+                        arr -> arr.length > 1 ? arr[1] : ""));
+        return argMap;
+    }
+
+    private static void logSuccess(File outputDir) {
         log.info("\n=================================================================================\n" +
-                String.format("Processing finished. View the results in directory: %s", BASE_DIR) +
+                String.format("Processing finished. View the results in directory: %s", outputDir.getAbsolutePath()) +
                 "\n================================================================================= ");
     }
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AsyncTransactionsProcessingServiceTest {
 
-    AsyncTransactionsProcessingService asyncTransactionsProcessingService = new AsyncTransactionsProcessingService();
+    AsyncTransactionsProcessingService asyncTransactionsProcessingService = new AsyncTransactionsProcessingService(null);
 
     @Test
     @Disabled
