@@ -34,13 +34,13 @@ public class AsyncTransaction {
     String status;
 
     @Getter
-    String resultsUri;
-
-    @Getter
     String accountId;
 
     @Getter
     String institutionId;
+
+    @Getter
+    String resultsUri;
 
     @Getter
     List<AsyncTransactionErrorDetails> errorDetails;

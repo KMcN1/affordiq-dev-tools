@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 @Slf4j
 public class AsyncTransactionsProcessingService {
-    public static final File BASE_DIR; //  = new File(System.getProperty("user.home").concat("/BlackArrow/AsyncTransactions/"));
+    public static final File BASE_DIR;
     static {
         URL resource = AsyncTransactionsProcessingService.class.getResource("/");
         BASE_DIR = new File(resource.getFile(), "../../results");
@@ -33,11 +33,16 @@ public class AsyncTransactionsProcessingService {
     public static final String PROCESSED = "Processed";
     public static final String FAILED = "Failed";
 
-    private final AsyncTransactionFetcherService asyncTransactionFetcherService = new AsyncTransactionFetcherService();
+    private final AsyncTransactionFetcherService asyncTransactionFetcherService;
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-            .enable(SerializationFeature.INDENT_OUTPUT)
-            .registerModule(new JavaTimeModule());
+    private final ObjectMapper objectMapper;
+
+    public AsyncTransactionsProcessingService() {
+        objectMapper = new ObjectMapper()
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .registerModule(new JavaTimeModule());
+        asyncTransactionFetcherService = new AsyncTransactionFetcherService(objectMapper);
+    }
 
 
     public File fetchAndProcessAsyncTransactionDetails(LocalDate date, Region region, String env) throws IOException {
