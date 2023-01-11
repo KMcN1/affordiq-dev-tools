@@ -36,7 +36,7 @@ If you want to see the results for a different date, add the appropriate paramet
 
 ### Results
 
-When the run has complete, you will be able to view the async transactions summary for the given date day in:
+When the run has complete, you will be able to view the async transactions summary for the given date in:
 
 -  ${user.home}/BlackArrow/TransactionsRefreshSummaries/demo
 -  ${user.home}/BlackArrow/TransactionsRefreshSummaries/test
