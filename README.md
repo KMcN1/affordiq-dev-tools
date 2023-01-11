@@ -43,7 +43,7 @@ When the run has complete, you will be able to view the async transactions summa
 
 #### Change output directory
 
-If you don;t wish to use the default outpur directory for the reports, you can chnge this to a directory of your choice, e.g.
+If you don't wish to use the default outpur directory for the reports, you can change this to a directory of your choice, e.g.
 
       java -jar async-transaction-refresh-analyzer.jar -Doutput_dir="my_own_dir/results"
       
