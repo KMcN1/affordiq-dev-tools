@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import software.amazon.awssdk.regions.Region;
 
+import java.awt.event.WindowFocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -39,6 +40,8 @@ public class AsyncTransactionAnalyzerApp implements CommandLineRunner {
         File outputDir = getOutputDirectory(argMap);
         LocalDate date = getDateToUse(argMap);
         AsyncTransactionsProcessingService asyncTransactionsProcessingService = new AsyncTransactionsProcessingService(outputDir);
+
+        log.info("Checking AsyncTransactions for date {}, with output directory {}", date, outputDir);
 
         ENV_MAP.forEach((env, region) -> {
             try {
