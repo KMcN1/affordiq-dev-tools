@@ -32,7 +32,7 @@ If you run the app with no arguments, it will fetch transactions for the current
 
 If you want to see the results for a different date, add the appropriate parameter (in ISO Date Format), e.g.
 
-      java -jar async-transaction-refresh-analyzer.jar -Ddate=2022-10-09
+      java -jar async-transaction-refresh-analyzer.jar --date=2022-10-09
 
 ### Results
 
@@ -45,7 +45,7 @@ When the run has complete, you will be able to view the async transactions summa
 
 If you don't wish to use the default output directory for the reports, you can change this to a directory of your choice, e.g.
 
-      java -jar async-transaction-refresh-analyzer.jar -Doutput_dir="my_own_dir/results"
+      java -jar async-transaction-refresh-analyzer.jar --output_dir="my_own_dir/results"
       
       
       
