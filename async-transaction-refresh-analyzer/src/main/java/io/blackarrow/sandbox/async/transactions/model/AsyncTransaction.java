@@ -1,11 +1,10 @@
 package io.blackarrow.sandbox.async.transactions.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.blackarrow.sandbox.async.transactions.model.annot.DynamoDbTable;
-import lombok.*;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbImmutable;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 import java.util.List;
