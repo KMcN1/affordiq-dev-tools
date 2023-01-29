@@ -2,10 +2,7 @@ package io.blackarrow.sandbox.async.transactions.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.blackarrow.sandbox.async.transactions.model.annot.DynamoDbTable;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.Value;
+import lombok.*;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbImmutable;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
@@ -13,35 +10,19 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 import java.time.OffsetDateTime;
 import java.util.List;
 
+@Data
 @Builder
-@Value
-@ToString
-@DynamoDbTable(tableName = "asyncTransactions")
-@DynamoDbImmutable(builder = AsyncTransaction.AsyncTransactionBuilder.class)
+@NoArgsConstructor
+@AllArgsConstructor
 public class AsyncTransaction {
 
-    @Getter(onMethod = @__({@DynamoDbPartitionKey, @DynamoDbAttribute("PK")}))
     String taskId;
-
-    @Getter
     String userId;
-
-    @Getter
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
     OffsetDateTime requestTimestamp;
-
-    @Getter
     String status;
-
-    @Getter
     String accountId;
-
-    @Getter
     String institutionId;
-
-    @Getter
     String resultsUri;
-
-    @Getter
     List<AsyncTransactionErrorDetails> errorDetails;
 }
