@@ -3,7 +3,7 @@ package io.blackarrow.sandbox.async.transactions.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.blackarrow.sandbox.async.transactions.model.AsyncTransaction;
+import io.blackarrow.sandbox.async.transactions.model.ddb.AsyncTransaction;
 import io.blackarrow.sandbox.async.transactions.model.AsyncTransactionSummary;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.regions.Region;
